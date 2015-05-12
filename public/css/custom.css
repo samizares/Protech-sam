@@ -1,0 +1,11 @@
+.navbar-brand, .navbar-brand:hover{
+  padding: 5px 15px;
+  text-align: center;
+  background: transparent;
+}
+
+.media-body p{
+  white-space: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
