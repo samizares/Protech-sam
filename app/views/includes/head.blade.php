@@ -27,6 +27,7 @@
   <link rel="stylesheet" type="text/css" href="{{asset('css/prettyPhoto.css')}}" />
   <!-- Custom CSS Styles  -->
   <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}" media="screen"/>
+  <script type="text/javascript" src="{{asset('js/humane.min.js') }}"></script>
 
 
 

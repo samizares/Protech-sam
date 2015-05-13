@@ -39,7 +39,7 @@ Route::get('download/{filename}', function($filename)
     }
 });
 
-  Route::post('contact', function()
+/*  Route::post('contact', array('before' => 'csrf', function()
 {
 
         // 1) Get all user's input
@@ -65,4 +65,5 @@ Route::get('download/{filename}', function($filename)
 
         // 6) Form a JSON response and send it while having HTTP status 200
         return Response::json($content, 200);
-       });
+       }
+       ));

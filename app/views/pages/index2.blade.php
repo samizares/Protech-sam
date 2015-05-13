@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.page')
 @section('title')
 Welcome to ProtechGas Homepage | Protech Gas Ltd
 @stop

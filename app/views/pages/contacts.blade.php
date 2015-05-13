@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.page')
 
 @section('title')
 Contact Page | Protech Gas Ltd
@@ -67,43 +67,47 @@ Contact Page | Protech Gas Ltd
         <!-- Classic Heading -->
         <h4 class="classic-title"><span>Email Us</span></h4>
 
+        {{Form::open(array('method' =>'post','url'=>'/contacts', 'class'=>'contact-form', 'id'=>'contact-form'))}}
+
+    <!--   <form role="form" class="contact-form" id="contact-form" method="post" action="./contact">  -->
+
         <div id="success-container" class="text-center" style="display:none;">
-        <p class="lead text-success"><span class="glyphicon glyphicon-ok"></span></p>
-        <p class="lead">Your message has been sent successfully!</p>
+          <p class="lead text-success"><span class="glyphicon glyphicon-ok"></span></p>
+          <p class="lead">Your message has been sent successfully!</p>
         </div>
         
         <!-- Start Contact Form -->
     <div id="form-container">
-    <form role="form" class="contact-form" id="contact-form" method="post" action="./contact">
-    <div class="form-group">
-    <div class="controls">
-    <input type="text" placeholder="Name" name="name">
-    </div>
-    </div>
-    <div class="form-group">
-    <div class="controls">
-    <input type="email" class="email" placeholder="Email" name="email">
-    </div>
-    </div>
-    <div class="form-group">
-    <div class="controls">
-    <input type="text" class="requiredField" placeholder="Subject" name="subject">
-    </div>
-    </div>
 
-    <div class="form-group">
+        <div class="form-group">
+          <div class="controls">
+            <input type="text" placeholder="Name" name="name">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="controls">
+            <input type="email" class="email" placeholder="Email" name="email">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="controls">
+            <input type="text" class="requiredField" placeholder="Subject" name="subject">
+          </div>
+       </div>
 
-    <div class="controls">
-    <textarea rows="7"  placeholder="Message" name="message"></textarea>
+        <div class="form-group">
+
+          <div class="controls">
+            <textarea rows="7"  placeholder="Message" name="message"></textarea>
+          </div>
+        </div>
+      <div class="form-group">
+        <div class="col-md-8 text-right" id="spin-area">
+         <button type="submit" class="btn-system btn-large" id="btn-send">Send</button>
+        </div>
+      </div>
     </div>
-    </div>
-    </div>
-    <div class="form-group">
-    <div class="col-md-8 text-right" id="spin-area">
-        <button type="submit" class="btn-system btn-large">Send</button>
-    </div>
-   </div>
-    </form>
+    {{form::close()}}
  </div>
         <!-- End Contact Form -->
         
@@ -167,9 +171,9 @@ Contact Page | Protech Gas Ltd
 @stop
 
 @section('script')
+<script type="text/javascript" src="{{asset('js/humane.min.js') }}"></script>
 <script type="text/javascript" src="{{asset('js/spin.min.js') }}"></script>
 <script type="text/javascript" src="{{asset('js/jquery.spin.js') }}"></script>
-<script type="text/javascript" src="{{asset('js/humane.min.js') }}"></script>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
   <script type="text/javascript"> 
         function init_map(){
@@ -181,14 +185,15 @@ Contact Page | Protech Gas Ltd
       </script>
 
     <script type="text/javascript"> 
+    $(function() {
         var contactForm = $('#contact-form');
         var spinArea = $('#spin-area'); // Retrieve DOM element
         var formContainer = $('#form-container');
         var successContainer= $('#success-container');
 
-        contactForm.submit(function(e){
-        e.preventDefault();
-        spinArea.spin('small'); // Attach the spinner
+       contactForm.submit(function(e){
+         e.preventDefault();
+        spinArea.spin('large'); // Attach the spinner
         $.ajax({
             type: "POST",
             url: contactForm.attr('action'),
@@ -206,11 +211,14 @@ Contact Page | Protech Gas Ltd
     }
 
     })
+    .fail(function () {
+          humane.log('An error has occured, please try again',{ addnCls: 'humane-flatty-error'});
+    })
     .always(function() {
     spinArea.spin(false); // Remove the spinner
     });
     });
 
-
+ });
       </script>
 @stop
