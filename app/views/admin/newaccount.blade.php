@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.page')
 
 @section('title')
 create New Admin Page | Protech Gas Ltd

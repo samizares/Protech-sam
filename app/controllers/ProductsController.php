@@ -5,19 +5,32 @@ class ProductsController extends BaseController {
 	public function __construct() {
 		parent::__construct();
 		$this->beforeFilter('csrf', array('on'=>'post'));
-		$this->beforeFilter('admin');
 	}
 
 	public function getIndex() {
-		$prodcats = array();
 
-		foreach(Productcategory::all() as $category) {
-			$prodcats[$category->id] = $category->name;
-		}
+		if (Auth::check()) {
+ 			 if(Auth::user()->admin == 1) {
+ 				$prodcats = array();
 
-		return View::make('products.index')
-			->with('products', Product::all())
-			->with('prodcats', $prodcats);
+				foreach(Productcategory::all() as $category) {
+					$prodcats[$category->id] = $category->name;
+					}
+
+					return View::make('products.index')
+					->with('products', Product::all())
+					->with('prodcats', $prodcats)
+					->with('message', 'Welcome to Admin Page');
+  				 }
+    			else {
+     			 return Redirect::to('admin/signin')
+      			->with('message', 'Thanks for signing in, but contact your admin to approve you');
+  				}
+			} else {
+   			return Redirect::to('admin/signin');
+			}
+
+	
 	}
 
 

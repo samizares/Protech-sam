@@ -5,7 +5,6 @@ class ProductcategoriesController extends BaseController {
 	public function __construct() {
 		parent::__construct();
 		$this->beforeFilter('csrf', array('on'=>'post'));
-		$this->beforeFilter('admin');
 	}
 
 	public function getIndex() {

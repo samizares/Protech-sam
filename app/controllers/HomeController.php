@@ -108,18 +108,34 @@ class HomeController extends BaseController {
         ];
 
         // 3) Apply the validator
-        $validator = Validator::make(Input::all(), $rules);
+        $validator = Validator::make(Input::all(), Message::$rules);
         if($validator->fails()) {
         // 4) Set the content to an array of validation error messages
         $content = [ 'errors' => $validator->messages()->all() ];
         } else {
 
+            $mess = new Message;
+
+            $mess->name =$input['name'];
+            $mess->email =$input['email'];
+            $mess->subject =$input['subject'];
+            $mess->content =$input['content'];
+
+            $mess->save();
+
+
+
         // 5) Send an HTML email or save the message in DB here
-        $content = [ 'status' => 'ok'];
+        $content = [ 
+            'success'=>[
+                'message' => 'Your message has been sent',
+                ]
+            ];
+
         }
 
         // 6) Form a JSON response and send it while having HTTP status 200
-        return Response::json($content, 200);
+        return Response::json($content);
        }
        
 

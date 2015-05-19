@@ -63,6 +63,21 @@ Contact Page | Protech Gas Ltd
     <div class="page-content">
       <div class="row">
         <div class="col-md-8">
+           @if (Session::has('message'))
+                    <p class="alert">{{ Session::get('message') }}</p>
+                @endif
+
+                @if($errors->has())
+    <div id="form-errors">
+      <p>The following errors have occurred:</p>
+
+      <ul>
+        @foreach($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div><!-- end form-errors -->
+    @endif
         
         <!-- Classic Heading -->
         <h4 class="classic-title"><span>Email Us</span></h4>
@@ -98,7 +113,7 @@ Contact Page | Protech Gas Ltd
         <div class="form-group">
 
           <div class="controls">
-            <textarea rows="7"  placeholder="Message" name="message"></textarea>
+            <textarea rows="7"  placeholder="Message" name="content"></textarea>
           </div>
         </div>
       <div class="form-group">
